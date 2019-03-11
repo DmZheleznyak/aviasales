@@ -1,0 +1,26 @@
+.info {
+	min-height: 20vh;
+	margin-top: 16px;
+	margin-bottom: 16px;
+}
+
+.info .nameAirline {
+	width: 50%;
+}
+
+.info .btnBuyTickets {
+	min-width: 60%;
+	background-color: #FF6D00;
+}
+
+.info .schedule {
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+	height: 100%;
+}
+
+.info .schedule-info {
+	display: flex;
+	flex-direction: column;
+}
