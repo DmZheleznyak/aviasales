@@ -1,10 +1,8 @@
 import AllTickets from '../../tickets_example/tickets.json';
 
 const initialState = {
-	aviatickets: AllTickets.tickets,
-	currencyRub: true,
-	currencyUsd: false,
-	currencyEur: false, 
+	aviatickets: AllTickets.tickets, 
+	activeCurrency: 'RUB',
 	allStops: false,
 	withoutStops: false,
 	oneStops: false,
@@ -16,83 +14,60 @@ const initialState = {
 export const rootReducer = (state = initialState, action) => {
 	switch( action.type ) {
 		case 'SELECT_CURRENCY':
-
-			let toggleRub = state.currencyRub, toggleUsd = state.currencyUsd, toggleEur = state.currencyEur
-
-				if (action.event.target.value === 'RUB' && state.currencyRub === false ) {
-					toggleRub = !state.currencyRub
-					toggleEur = false
-					toggleUsd = false	
-				}
-
-				if (action.event.target.value === 'USD' && state.currencyUsd === false) {
-					toggleUsd = !state.currencyUsd
-					toggleEur = false	
-					toggleRub = false
-				}
-				
-				if (action.event.target.value === 'EUR' && state.currencyEur === false ) {
-					toggleEur = !state.currencyEur
-					toggleRub = false
-					toggleUsd = false	
-				}
-
 			return {
 				...state,
-				currencyRub: toggleRub,
-				currencyUsd: toggleUsd,
-				currencyEur: toggleEur
+				activeCurrency: action.value
 			}
 		case 'SELECT_STOP':
 			let filterShowAviatickets = [ ...state.showAviatickets ]
 
-			if ( action.event.target.checked === true && action.event.target.value === 'withoutStops') {
+			if ( action.checked === true && action.value === 'withoutStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 0 ) 
 				]
 			}
 
-			if ( action.event.target.checked === false && action.event.target.value === 'withoutStops') {
+			if ( action.checked === false && action.value === 'withoutStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 0 ) 
 				]
 			}
 			
-			if ( action.event.target.checked === true && action.event.target.value === 'oneStops' ) {
+			if ( action.checked === true && action.value === 'oneStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 1 ) 
 				]
 			}
 
-			if ( action.event.target.checked === false && action.event.target.value === 'oneStops') {
+			if ( action.checked === false && action.value === 'oneStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 1 ) 
 				]
 			}
 						
-			if ( action.event.target.checked === true && action.event.target.value === 'twoStops' ) {
+			if ( action.checked === true && action.value === 'twoStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 2 ) 
 				]
 			}
 
-			if ( action.event.target.checked === false && action.event.target.value === 'twoStops') {
+			if ( action.checked === false && action.value === 'twoStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 2 ) 
 				]
 			}
 
-			if ( action.event.target.checked === true && action.event.target.value === 'threeStops' ) {
+			if ( action.checked === true && action.value === 'threeStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 3 ) 
 				]
 			}
 
-			if ( action.event.target.checked === false && action.event.target.value === 'threeStops') {
+			if ( action.checked === false && action.value === 'threeStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 3 ) 
 				]
@@ -100,8 +75,32 @@ export const rootReducer = (state = initialState, action) => {
 
 			return { 
 				...state,
-				[action.event.target.value]: action.event.target.checked,
+				[action.value]: action.checked,
 				showAviatickets: filterShowAviatickets
+			}
+
+		case 'SELECT_ALL_STOPS':
+		console.log(`action - `, action)
+			if (action.checked) {
+				return {
+					...state,
+					allStops: true,
+					withoutStops: true,
+					oneStops: true,
+					twoStops: true,
+					threeStops: true,
+					showAviatickets: [ ...state.aviatickets ]
+				}
+			} else {
+				return {
+					...state,
+					allStops: false,
+					withoutStops: false,
+					oneStops: false,
+					twoStops: false,
+					threeStops: false,
+					showAviatickets: []
+				}
 			}
 		default: return state;
 	}

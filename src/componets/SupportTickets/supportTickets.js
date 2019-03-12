@@ -2,7 +2,7 @@ import React from 'react';
 import './supportTickets.css';
 
 import { connect } from 'react-redux';
-import { selectStop, selectCurrency } from '../../store/actions/actionCreators';
+import { selectStop, selectAllStops , selectCurrency } from '../../store/actions/actionCreators';
 
 import Paper from '@material-ui/core/Paper';
 import ToggleButton from '@material-ui/lab/ToggleButton';
@@ -12,8 +12,19 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
-const supportTickets = (props) => {
+const supportTickets = props => {
 	console.log( 'props in Support Tickets: ' , props)
+
+	const currencies = [ 'RUB', 'EUR', 'USD' ]
+
+	const buttonsCurrency = currencies.map( currency => 
+		<ToggleButton 
+			selected = { props.activeCurrency === currency }
+			value = { currency }
+		>
+			{ currency }
+		</ToggleButton>
+	 )
 	
 	return (
 		<div>
@@ -21,35 +32,27 @@ const supportTickets = (props) => {
 			<Paper className="support" square>
 				<Typography>ВАЛЮТА</Typography>
 				<ToggleButtonGroup
-				exclusive 
-				onChange={ event => props.selectCurrency(event) } 
+				exclusive
+				onChange = { (event, value) => props.selectCurrency( value ) }
 				>
-					<ToggleButton
-						selected = { props.currencyRub }
-						value='RUB'>RUB</ToggleButton>
-					<ToggleButton 
-						selected = { props.currencyEur }
-						value='EUR'>EUR</ToggleButton>
-					<ToggleButton
-						selected = { props.currencyUsd }
-						value='USD'>USD</ToggleButton>
+					{ buttonsCurrency }
 				</ToggleButtonGroup>
 				<Typography>КОЛИЧЕСТВО ПЕРЕСАДОК</Typography>
 				<div className="CheckboxGroup">
 					<div className="CheckboxItem">
 						<FormControlLabel
 							control={
-								<Checkbox checked={props.allStops} value="all" onChange={(event) => props.selectStop( event ) }/>
+								<Checkbox checked={props.allStops} value="all" onChange={ event => props.selectAllStops( event ) }/>
 							}
 							label="All" />
-						<Button onClick={ event => console.log(event.target) } className='btnOnly'>
+						<Button onClick={ (event) => props.selectCurrency(event) } className='btnOnly'>
 							<Typography>только</Typography>
 						</Button>
 					</div>
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.withoutStops} value="withoutStops" onChange={(event) => props.selectStop( event ) } />
+								<Checkbox checked={props.withoutStops} value="withoutStops" onChange={ event => props.selectStop( event ) } />
 							}
 							label="Без пересадок" />
 						<Button className='btnOnly'>только</Button>
@@ -57,7 +60,7 @@ const supportTickets = (props) => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.oneStops} value="oneStops" onChange={(event) => props.selectStop( event ) } />
+								<Checkbox checked={props.oneStops} value="oneStops" onChange={ event => props.selectStop( event ) } />
 							}
 							label="1 пересадка" />
 						<Button className='btnOnly'>только</Button>
@@ -65,7 +68,7 @@ const supportTickets = (props) => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.twoStops} value="twoStops" onChange={(event) => props.selectStop( event ) } />
+								<Checkbox checked={props.twoStops} value="twoStops" onChange={ event => props.selectStop( event ) } />
 							}
 							label="2 пересадки" />
 						<Button className='btnOnly'>только</Button>
@@ -73,7 +76,7 @@ const supportTickets = (props) => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.threeStops} value="threeStops" onChange={(event) => props.selectStop( event ) } />
+								<Checkbox checked={props.threeStops} value="threeStops" onChange={(event) => props.selectStop( event.target.value, event.target.checked ) } />
 							}
 							label="3 пересадки" />
 						<Button className='btnOnly'>только</Button>
@@ -92,14 +95,13 @@ const mapStateToProps = state => ({
 	twoStops: state.twoStops,
 	threeStops: state.threeStops,
 
-	currencyRub: state.currencyRub,
-	currencyEur: state.currencyEur,
-	currencyUsd: state.currencyUsd
+	activeCurrency: state.activeCurrency
 })
 
 const mapDispatchToProps = dispatch => ({
 	selectStop: event => dispatch( selectStop( event ) ),
-	selectCurrency: event => dispatch( selectCurrency( event ) )
+	selectAllStops: event => dispatch( selectAllStops( event ) ),
+	selectCurrency: (value) => dispatch( selectCurrency( value ) )
 })
 
 const SupportTickets = connect(mapStateToProps, mapDispatchToProps)(supportTickets)

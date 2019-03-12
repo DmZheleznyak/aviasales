@@ -12,15 +12,15 @@ const ticketsList = props => {
 	const TicketsListInfo = props.showAviatickets.map(ticket => {
 
 		const showCurrency = () => {
-			if (props.currencyRub) {
+			if (props.activeCurrency === 'RUB') {
 				return `${ticket.price} RUB`
 			}
 
-			if (props.currencyUsd) {
+			if (props.activeCurrency === 'USD') {
 				return `${Math.round( (ticket.price / 66.5) * 10 ) / 10} USD`
 			}
 
-			if (props.currencyEur) {
+			if (props.activeCurrency === 'EUR') {
 				return `${Math.round( (ticket.price / 75) * 10 ) / 10} EUR`
 			}
 		}
@@ -90,9 +90,7 @@ const ticketsList = props => {
 const mapStateToProps = state => ({
 	showAviatickets: state.showAviatickets,
 	allAviatickets: state.aviatickets,
-	currencyRub: state.currencyRub,
-	currencyUsd: state.currencyUsd,
-	currencyEur: state.currencyEur
+	activeCurrency: state.activeCurrency
 })
 
 const TicketsList = connect( mapStateToProps )( ticketsList )
