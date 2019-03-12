@@ -21,53 +21,53 @@ export const rootReducer = (state = initialState, action) => {
 		case 'SELECT_STOP':
 			let filterShowAviatickets = [ ...state.showAviatickets ]
 
-			if ( action.checked === true && action.value === 'withoutStops') {
+			if ( action.checked && action.value === 'withoutStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 0 ) 
 				]
 			}
 
-			if ( action.checked === false && action.value === 'withoutStops') {
+			if ( !action.checked && action.value === 'withoutStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 0 ) 
 				]
 			}
 			
-			if ( action.checked === true && action.value === 'oneStops' ) {
+			if ( action.checked && action.value === 'oneStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 1 ) 
 				]
 			}
 
-			if ( action.checked === false && action.value === 'oneStops') {
+			if ( !action.checked && action.value === 'oneStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 1 ) 
 				]
 			}
 						
-			if ( action.checked === true && action.value === 'twoStops' ) {
+			if ( action.checked && action.value === 'twoStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 2 ) 
 				]
 			}
 
-			if ( action.checked === false && action.value === 'twoStops') {
+			if ( !action.checked && action.value === 'twoStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 2 ) 
 				]
 			}
 
-			if ( action.checked === true && action.value === 'threeStops' ) {
+			if ( action.checked && action.value === 'threeStops' ) {
 				filterShowAviatickets = [
 					...filterShowAviatickets, 
 					...state.aviatickets.filter( ticket => ticket.stops === 3 ) 
 				]
 			}
 
-			if ( action.checked === false && action.value === 'threeStops') {
+			if ( !action.checked && action.value === 'threeStops') {
 				filterShowAviatickets = [
 					...filterShowAviatickets.filter( ticket => ticket.stops !== 3 ) 
 				]
@@ -80,7 +80,6 @@ export const rootReducer = (state = initialState, action) => {
 			}
 
 		case 'SELECT_ALL_STOPS':
-		console.log(`action - `, action)
 			if (action.checked) {
 				return {
 					...state,

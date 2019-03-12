@@ -42,7 +42,10 @@ const supportTickets = props => {
 					<div className="CheckboxItem">
 						<FormControlLabel
 							control={
-								<Checkbox checked={props.allStops} value="all" onChange={ event => props.selectAllStops( event ) }/>
+								<Checkbox 
+									checked={ props.allStops } 
+									value="all" 
+									onChange={ event => props.selectAllStops( event ) }/>
 							}
 							label="All" />
 						<Button onClick={ (event) => props.selectCurrency(event) } className='btnOnly'>
@@ -52,7 +55,10 @@ const supportTickets = props => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.withoutStops} value="withoutStops" onChange={ event => props.selectStop( event ) } />
+								<Checkbox 
+									checked={ props.withoutStops } 
+									value="withoutStops" 
+									onChange={ event => props.selectStop( event ) } />
 							}
 							label="Без пересадок" />
 						<Button className='btnOnly'>только</Button>
@@ -60,7 +66,10 @@ const supportTickets = props => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.oneStops} value="oneStops" onChange={ event => props.selectStop( event ) } />
+								<Checkbox 
+									checked={ props.oneStops } 
+									value="oneStops" 
+									onChange={ event => props.selectStop( event ) } />
 							}
 							label="1 пересадка" />
 						<Button className='btnOnly'>только</Button>
@@ -68,7 +77,10 @@ const supportTickets = props => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.twoStops} value="twoStops" onChange={ event => props.selectStop( event ) } />
+								<Checkbox 
+									checked={ props.twoStops } 
+									value="twoStops" 
+									onChange={ event => props.selectStop( event ) } />
 							}
 							label="2 пересадки" />
 						<Button className='btnOnly'>только</Button>
@@ -76,7 +88,10 @@ const supportTickets = props => {
 					<div className="CheckboxItem">
 					<FormControlLabel
 							control={
-								<Checkbox checked={props.threeStops} value="threeStops" onChange={(event) => props.selectStop( event.target.value, event.target.checked ) } />
+								<Checkbox 
+									checked={ props.threeStops } 
+									value="threeStops" 
+									onChange={ event => props.selectStop( event ) } />
 							}
 							label="3 пересадки" />
 						<Button className='btnOnly'>только</Button>
