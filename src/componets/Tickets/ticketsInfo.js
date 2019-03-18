@@ -46,14 +46,20 @@ const ticketsList = props => {
 		}
 
 		return (
-			<Paper className="info">
+			<Paper 
+			className="info" 
+			key={ ticket.price }>
 				<Grid container>
-					<Grid item xs={4} >
-						<Typography variant='h6'>
+					<Grid 
+					item xs={4} >
+						<Typography 
+						variant='h6'>
 							<span className="nameAirline">Turkish <br /> Airline.</span>
 							<span>Logo</span>
 						</Typography>
-						<Button className="btnBuyTickets" variant='contained' color="secondary">
+						<Button className="btnBuyTickets" 
+						variant='contained' 
+						color="secondary">
 							Купить <br /> { showCurrency() }
 						</Button>
 					</Grid>
@@ -87,11 +93,7 @@ const ticketsList = props => {
 	)
 }
 
-const mapStateToProps = state => ({
-	showAviatickets: state.showAviatickets,
-	allAviatickets: state.aviatickets,
-	activeCurrency: state.activeCurrency
-})
+const mapStateToProps = state => ({	showAviatickets: state.showAviatickets,	allAviatickets: state.aviatickets,	activeCurrency: state.activeCurrency })
 
 const TicketsList = connect( mapStateToProps )( ticketsList )
 

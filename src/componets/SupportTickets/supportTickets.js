@@ -13,12 +13,11 @@ import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Button from '@material-ui/core/Button';
 
 const supportTickets = props => {
-	console.log( 'props in Support Tickets: ' , props)
 
 	const currencies = [ 'RUB', 'EUR', 'USD' ]
 
 	const buttonsCurrency = currencies.map( currency => 
-		<ToggleButton 
+		<ToggleButton key={ currency }
 			selected = { props.activeCurrency === currency }
 			value = { currency }
 		>
@@ -48,9 +47,6 @@ const supportTickets = props => {
 									onChange={ event => props.selectAllStops( event ) }/>
 							}
 							label="All" />
-						<Button onClick={ (event) => props.selectCurrency(event) } className='btnOnly'>
-							<Typography>только</Typography>
-						</Button>
 					</div>
 					<div className="CheckboxItem">
 					<FormControlLabel
@@ -61,7 +57,7 @@ const supportTickets = props => {
 									onChange={ event => props.selectStop( event ) } />
 							}
 							label="Без пересадок" />
-						<Button className='btnOnly'>только</Button>
+						<Button className='btnOnly' onClick = { event => console.log(event) }>только</Button>
 					</div>
 					<div className="CheckboxItem">
 					<FormControlLabel
@@ -116,7 +112,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
 	selectStop: event => dispatch( selectStop( event ) ),
 	selectAllStops: event => dispatch( selectAllStops( event ) ),
-	selectCurrency: (value) => dispatch( selectCurrency( value ) )
+	selectCurrency: value => dispatch( selectCurrency( value ) )
 })
 
 const SupportTickets = connect(mapStateToProps, mapDispatchToProps)(supportTickets)

@@ -12,6 +12,12 @@ export const selectAllStops = event => ({
 	checked: event.target.checked
 })
 
+export const selectOnlyOneStop = event => ({
+	type: actionTypes.SELECT_ONLY_ONE_STOP,
+	value: event.target.value,
+	checked: event.target.checked
+})
+
 export const selectCurrency = value => ({
 	type: actionTypes.SELECT_CURRENCY,
 	value
